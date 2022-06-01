@@ -1,0 +1,87 @@
+<div class="card">
+    <div class="card-header">
+        {{title}}
+    </div>
+    <div class="card-body">
+        <form novalidate (ngSubmit)="saveProduct()" [formGroup]="productForm">
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="productName">Product Name</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="productName" type="text" placeholder="Product Name(required)" formControlName="productName" [ngClass]="{'is-invalid':(productForm.get('productName').touched || productForm.get('productName').dirty) && !productForm.get('productName').valid}"
+                    />
+                    <span class="invalid-feedback">
+                        {{['productName']}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="productCode">Product Code</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="productCode" type="text" placeholder="Product Code(required)" formControlName="productCode" [ngClass]="{'is-invalid':(productForm.get('productCode').touched || productForm.get('productCode').dirty) && !productForm.get('productCode').valid}"
+                    />
+                    <span class="invalid-feedback">
+                        {{['productCode']}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="releaseDate">Available</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="releaseDate" type="date" placeholder="Release Date(required)" formControlName="releaseDate" [ngClass]="{'is-invalid':(productForm.get('releaseDate').touched || productForm.get('releaseDate').dirty) && !productForm.get('releaseDate').valid}"
+                    />
+                    <span class="invalid-feedback">
+                        {{['releaseDate']}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="price">Price</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="price" type="text" placeholder="Price(required)" formControlName="price" [ngClass]="{'is-invalid':(productForm.get('price').touched || productForm.get('price').dirty) && !productForm.get('price').valid}" />
+                    <span class="invalid-feedback">
+                        {{['price']}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="starRating">Star Rating</label>
+                <div class="col-md-8">
+                    <input class="form-control" id="starRating" type="text" placeholder="Rating Range(1-5)(required)" formControlName="starRating" [ngClass]="{'is-invalid':(productForm.get('starRating').touched || productForm.get('starRating').dirty) && !productForm.get('starRating').valid}"
+                    />
+                    <span class="invalid-feedback">
+                        {{['starRating']}}
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-md-2 col-form-label" for="descriptionId">Description</label>
+                <div class="col-md-8">
+                    <!-- <input class="form-control" id="descriptionId" type="text" placeholder="DescriptionId" formControlName="description"> -->
+                    <textarea class="form-control" id="descriptionId" placeholder="description of product" rows="3" formControlName="description"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <div class="offset-md-2 col-md-4">
+                    <button class="btn btn-primary mr-3" style="width:80px" type="submit" [title]="productForm.valid? 'Save Product Data':'Disabled until form data is valid'" [disabled]="!productForm.valid"> 
+                        Save
+                    </button>
+                    <button class="btn btn-outline-danger mr-3" style="width:80px" type="button" [routerLink]="['/products']">Cancel</button>
+                    <button class="btn btn-outline-warning mr-3" style="width:80px" type="button" (click)="deleteProduct()">Delete</button>
+
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="alert alert-danger" *ngIf="errorMessage">
+    {{errorMessage}}
+
+</div>

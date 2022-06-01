@@ -1,0 +1,53 @@
+<div class="card">
+    <div class="card-header">
+        {{title}}
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-2"> Filter By: </div>
+            <div>
+                <input type="text" [(ngModel)]="listFilter"> </div>
+            <div class="col-md-4">
+                <h4>Filtered By: {{listFilter}}</h4>
+            </div>
+
+        </div>
+        <!-- <div [(ngModel)]="listFilter">Two way binding on tags other than input </div> -->
+        <div class="table-responsive">
+            <table class="table" *ngIf="products.length">
+                <thead>
+                    <tr>
+                        <th><button class="btn btn-primary" (click)="toggleImage()">
+                            {{showImage ? 'Hide' : 'Show'}} Image
+                            
+                        </button></th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of filteredproducts">
+                        <td><img [src]="product.imageUrl" *ngIf="showImage" [alt]="product.productName" [title]="product.productCode" [height]="imgHeight" [width]="imgWidth"> </td>
+                        <td><a [routerLink]="['/products',product.productId]">{{product.productName|uppercase}}</a></td>
+                        <td>{{product.productCode|lowercase|convertToSpaces:'-'}}</td>
+                        <td>{{product.releaseDate|date:'dd-MMM-yyyy'}}</td>
+                        <td>{{product.price|currency:'INR'}}</td>
+                        <!-- <td>{{product.starRating}}</td> -->
+                        <td>
+                            <app-star [rating]="product.starRating" (ratingClicked)="onRatingClickedParent($event)"></app-star>
+                        </td>
+                        <!-- <td>{{34456.678|number:'1.2-2'}}</td> -->
+                        <td>
+                            <a class="btn btn-outline-primary" [routerLink]="['/products/',product.productId,'edit']">Edit</a>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
